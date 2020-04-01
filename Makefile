@@ -1,15 +1,17 @@
 
 GOPATH:=$(shell go env GOPATH)
-
+MODIFY=Mgithub.com/micro/go-micro/api/proto/api.proto=github.com/micro/go-micro/v2/api/proto
 
 .PHONY: proto
 proto:
-	protoc --proto_path=${GOPATH}/src:. --micro_out=. --go_out=. proto/tokenplay/tokenplay.proto
+    
+	protoc --proto_path=. --micro_out=${MODIFY}:. --go_out=${MODIFY}:. proto/tokenplay/tokenplay.proto
+    
 
 .PHONY: build
 build: proto
 
-	go build -o tokenplay-srv *.go
+	go build -o tokenplay-service *.go
 
 .PHONY: test
 test:
@@ -17,4 +19,4 @@ test:
 
 .PHONY: docker
 docker:
-	docker build . -t tokenplay-srv:latest
+	docker build . -t tokenplay-service:latest

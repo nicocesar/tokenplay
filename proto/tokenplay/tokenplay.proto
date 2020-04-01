@@ -4,21 +4,21 @@ package tokenplay;
 option go_package = "proto/tokenplay";
 
 service Tokenplay {
-	rpc AddWord(Request) returns (Response) {}
+	rpc Call(Request) returns (Response) {}
 	rpc Stream(StreamingRequest) returns (stream StreamingResponse) {}
 	rpc PingPong(stream Ping) returns (stream Pong) {}
 }
 
+message Message {
+	string say = 1;
+}
+
 message Request {
-	string Word = 1;
+	string name = 1;
 }
 
 message Response {
 	string msg = 1;
-}
-
-message Message {
-        string say = 1;
 }
 
 message StreamingRequest {

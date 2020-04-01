@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/micro/go-micro/v2/util/log"
+	log "github.com/micro/go-micro/v2/logger"
 	"github.com/micro/go-micro/v2"
 	"github.com/nicocesar/tokenplay/handler"
 	"github.com/nicocesar/tokenplay/subscriber"
@@ -14,7 +14,6 @@ func main() {
 	service := micro.NewService(
 		micro.Name("tokenplay"),
 		micro.Version("latest"),
-		micro.Broker(mqtt.NewBroker()),
 	)
 
 	// Initialise service
@@ -25,9 +24,6 @@ func main() {
 
 	// Register Struct as Subscriber
 	micro.RegisterSubscriber("tokenplay", service.Server(), new(subscriber.Tokenplay))
-
-	// Register Function as Subscriber
-	micro.RegisterSubscriber("tokenplay", service.Server(), subscriber.Handler)
 
 	// Run service
 	if err := service.Run(); err != nil {

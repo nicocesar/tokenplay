@@ -2,7 +2,7 @@ package subscriber
 
 import (
 	"context"
-	"github.com/micro/go-micro/v2/util/log"
+	log "github.com/micro/go-micro/v2/logger"
 
 	tokenplay "github.com/nicocesar/tokenplay/proto/tokenplay"
 )
@@ -10,11 +10,11 @@ import (
 type Tokenplay struct{}
 
 func (e *Tokenplay) Handle(ctx context.Context, msg *tokenplay.Message) error {
-	log.Log("Handler Received message: ", msg.Say)
+	log.Info("Handler Received message: ", msg.Say)
 	return nil
 }
 
 func Handler(ctx context.Context, msg *tokenplay.Message) error {
-	log.Log("Function Received message: ", msg.Say)
+	log.Info("Function Received message: ", msg.Say)
 	return nil
 }

@@ -5,7 +5,7 @@ This is the Tokenplay service
 Generated with
 
 ```
-micro new github.com/nicocesar/tokenplay --namespace=nicocesar --fqdn=tokenplay --type=srv
+micro new github.com/nicocesar/tokenplay --namespace=nicocesar --fqdn=tokenplay --type=service
 ```
 
 ## Getting Started
@@ -17,7 +17,7 @@ micro new github.com/nicocesar/tokenplay --namespace=nicocesar --fqdn=tokenplay 
 ## Configuration
 
 - FQDN: tokenplay
-- Type: srv
+- Type: service
 - Alias: tokenplay
 
 ## Dependencies
@@ -46,7 +46,7 @@ make build
 
 Run the service
 ```
-./tokenplay-srv
+./tokenplay-service
 ```
 
 Build a docker image

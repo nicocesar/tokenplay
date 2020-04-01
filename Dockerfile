@@ -1,3 +1,3 @@
-FROM ubuntu
-ADD tokenplay-srv /tokenplay-srv
-ENTRYPOINT [ "/tokenplay-srv" ]
+FROM alpine
+ADD tokenplay-service /tokenplay-service
+ENTRYPOINT [ "/tokenplay-service" ]

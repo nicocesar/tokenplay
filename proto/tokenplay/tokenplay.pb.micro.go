@@ -34,7 +34,7 @@ var _ server.Option
 // Client API for Tokenplay service
 
 type TokenplayService interface {
-	AddWord(ctx context.Context, in *Request, opts ...client.CallOption) (*Response, error)
+	Call(ctx context.Context, in *Request, opts ...client.CallOption) (*Response, error)
 	Stream(ctx context.Context, in *StreamingRequest, opts ...client.CallOption) (Tokenplay_StreamService, error)
 	PingPong(ctx context.Context, opts ...client.CallOption) (Tokenplay_PingPongService, error)
 }
@@ -51,8 +51,8 @@ func NewTokenplayService(name string, c client.Client) TokenplayService {
 	}
 }
 
-func (c *tokenplayService) AddWord(ctx context.Context, in *Request, opts ...client.CallOption) (*Response, error) {
-	req := c.c.NewRequest(c.name, "Tokenplay.AddWord", in)
+func (c *tokenplayService) Call(ctx context.Context, in *Request, opts ...client.CallOption) (*Response, error) {
+	req := c.c.NewRequest(c.name, "Tokenplay.Call", in)
 	out := new(Response)
 	err := c.c.Call(ctx, req, out, opts...)
 	if err != nil {
@@ -164,14 +164,14 @@ func (x *tokenplayServicePingPong) Recv() (*Pong, error) {
 // Server API for Tokenplay service
 
 type TokenplayHandler interface {
-	AddWord(context.Context, *Request, *Response) error
+	Call(context.Context, *Request, *Response) error
 	Stream(context.Context, *StreamingRequest, Tokenplay_StreamStream) error
 	PingPong(context.Context, Tokenplay_PingPongStream) error
 }
 
 func RegisterTokenplayHandler(s server.Server, hdlr TokenplayHandler, opts ...server.HandlerOption) error {
 	type tokenplay interface {
-		AddWord(ctx context.Context, in *Request, out *Response) error
+		Call(ctx context.Context, in *Request, out *Response) error
 		Stream(ctx context.Context, stream server.Stream) error
 		PingPong(ctx context.Context, stream server.Stream) error
 	}
@@ -186,8 +186,8 @@ type tokenplayHandler struct {
 	TokenplayHandler
 }
 
-func (h *tokenplayHandler) AddWord(ctx context.Context, in *Request, out *Response) error {
-	return h.TokenplayHandler.AddWord(ctx, in, out)
+func (h *tokenplayHandler) Call(ctx context.Context, in *Request, out *Response) error {
+	return h.TokenplayHandler.Call(ctx, in, out)
 }
 
 func (h *tokenplayHandler) Stream(ctx context.Context, stream server.Stream) error {
